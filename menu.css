@@ -19,6 +19,15 @@ body{
     margin-top:-3.15vw;
 }
 
+#blackout{
+    position: absolute;
+    top: -20vh !important;
+    width: 100%;
+    height: 120vh;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 6;
+}
+
 #mainmenu{
     display:none;
     margin-top:3.15vw;
@@ -111,6 +120,7 @@ body{
 }
 
 #lobby{
+    display:none;
     color: #afbed5;
 }
 
@@ -179,7 +189,6 @@ body{
 }
 
 #mapPic{
-
     margin-top: 2.2vw;
     width:100%;
     height:13.08vw;
@@ -235,4 +244,133 @@ body{
 
 #legend, #priorGame{
     display:none
+}
+
+#switchLobbyMenu{
+    display:none;
+    position: absolute;
+    height:0;
+    z-index:6;
+}
+
+#switchLobbyMenu div:not(#lobbyDesc){
+    position: relative;
+    left:6.3vw;
+    top: 4.28vw;
+    font-size:2vw;
+    letter-spacing: -0.05vw;
+    background-color: grey;
+    width: 18.5vw;
+    color: white;
+    padding-left:1vw;
+}
+
+#switchLobbyMenu ul{
+    position: relative;
+    left: 25.75vw;
+    top:0.75vw;
+    padding:0;
+    list-style-type: none;
+    background-color:grey;
+    width: 21vw;
+    color: white;
+    margin-bottom:0;
+}
+
+#switchLobbyMenu ul li{
+    padding-left:2.3vw;
+    font-size:1.8vw;
+    letter-spacing: 0.01vw;
+    padding-top:0.1vw;
+    padding-bottom: 0.1vw;
+}
+
+#switchLobbyMenu ul li:hover{
+    background: -webkit-linear-gradient(left, rgba(199, 109, 41, 0.85) 0%, rgba(255, 110, 0, 0.25) 90%);
+}
+
+#lobbyDesc{
+    position:relative;
+    top: -3.7vw;
+    left:48vw;
+    width: 25vw;
+    font-size:1.8vw;
+    line-height: 2vw;
+    letter-spacing:0.02vw;
+}
+
+#settingsWindow{
+    margin-top: 5.5vw;
+    position: relative;
+    height: 40.4vw;
+    width: 100%;
+    opacity:0.8;
+    background-color: #14234a;
+    padding-left: 12.8vw;
+    font-size:1.9vw;
+    color: #afbed5;
+    z-index:7;
+}
+
+#windowTitle{
+    position: absolute;
+    left: 0;
+    top:0;
+    width: 100%;
+    padding-left:16.3vw;
+    letter-spacing:0.15vw;
+    background-color: black;
+    height: 4vw;
+    font-size: 3.5vw;
+    color: white;
+} 
+
+#settingsWindow ul{
+    float: left;
+    width: 20vw;
+    margin:0;
+    list-style-type: none;
+    margin-top: 5.2vw;
+    letter-spacing:-0.01vw;
+    line-height: 2.3vw;
+}
+
+#settingsWindow ul li{
+    padding-left: 1.55vw;
+}
+
+#settingsWindow ul li:hover{
+    background: -webkit-linear-gradient(left, rgba(199, 109, 41, 0.85) 0%, rgba(255, 110, 0, 0.25) 90%);
+    color: white;
+}
+
+#secondaryList{
+    position: relative;
+    left: -0.5vw;
+}
+
+#optionDesc{
+    position: relative;
+    float: right;
+    top: 21.1vw;
+    right: 29.5vw;
+    line-height: 2vw;
+    letter-spacing:-0.01vw;
+    width: 20vw;
+}
+
+#controlLegend{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3vw;
+    background-color: black;
+}
+
+#menuChoicePic{
+    position: relative;
+    top: 6vw;
+    width: 11.5vw;
+    left: 8.5vw;
 }
