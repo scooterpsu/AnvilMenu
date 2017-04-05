@@ -1,29 +1,54 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Settings</title>
+    <title>Menu</title>
     <script src="dew://lib/dew.js"></script>
     <script src="dew://lib/jquery-2.2.1.min.js"></script>
     <script src="dew://lib/jquery-ui.js"></script>
     <script src="js/menu.js"></script>
     <link rel="stylesheet" href="menu.css">
-    <script>
-        /*$(function() {
-            $( "#settingsWindow" ).draggable();
-            $( "#controllerSettings" ).draggable();
-        });*/
-    </script>
 </head>
 <body>
 
 <div id="mainmenu">
-<ul>
-<li>SERVER BROWSER</li>
-<li>LOCAL GAMES</li>
-<li>HOST MULTIPLAYER</li>
-<li>HOST FORGE</li>
-</ul>
-<div>Settings</div>
+    <ul>
+        <li id="serverBrowser">SERVER BROWSER</li>
+        <li id="localGames">LOCAL GAMES</li>
+        <li id="hostMultiplayer">HOST MULTIPLAYER</li>
+        <li id="hostForge">HOST FORGE</li>
+    </ul>
+    <div id="settingsButton">Settings</div>
+    <div id="exitButton">Exit</div>
+</div>
+
+<div id="lobby">
+    <div id="leftSide">
+        <div id="title">MULTIPLAYER LOBBY</div>
+        <ul>
+            <li id="switchLobby">SWITCH LOBBY</li>
+            <li id="network">NETWORK: ONLINE</li>
+            <li id="gameMode">GAME: SLAYER</li>
+            <li id="mapChoice">MAP: HIGH GROUND</li>
+            <li id="startGame">START GAME</li>
+        </ul>
+        <div id="gameOptions">GAME OPTIONS</div>
+        <div id="status">Ready.<br>
+        This party is open for others to join.</div>
+        <img id="mapPic" src="images/maps/deadlock.png">
+        <img id="varPic" src="images/gametypes/slayer.png">
+        <div id="gameDesc">Slayer on High Ground</div>
+        <div id="priorGame">Prior Game Stats</div>
+        <div id="legend">
+            <div>Settings</div><div>Select</div><div>Leave</div><div>Friends</div>
+        </div>
+    </div>
+    
+    <div id="rightSide">
+        <div id="playerCount">1 Player (8 max)</div>
+        <ul>
+            <li>ScooterPSU</li>
+        </ul>
+    </div>
 </div>
 
 </body>
