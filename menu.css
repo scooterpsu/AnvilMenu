@@ -121,6 +121,7 @@ body{
 }
 
 #lobby{
+    display:none;
     color: #afbed5;
 }
 
@@ -151,6 +152,7 @@ body{
 #leftside ul{
     padding:0;
     margin-top:-0.1vw;
+    height:9.4vw;
 }
 
 #leftSide ul li{
@@ -164,7 +166,12 @@ body{
 }
 
 #startGame{
-    margin-top:0.6vw;
+    position:relative;
+    height:2.17vw;
+    padding-left:2.5%;
+    font-size: 1.97vw;
+    letter-spacing: -0.049vw;
+    margin-left: 0.1vw;
 }
 
 #status, #gameOptions{
@@ -184,7 +191,7 @@ body{
     height:5.85vw;
 }
 
-#leftSide ul li:hover, #gameOptions:hover{
+#leftSide ul li:hover, #gameOptions:hover, #startGame:hover{
     background: -webkit-linear-gradient(left, rgba(199, 109, 41, 0.85) 0%, rgba(255, 110, 0, 0.25) 90%);
 }
 
@@ -260,7 +267,26 @@ body{
     padding-left:1vw;
 }
 
-#switchLobbyMenu ul{
+#switchNetworkMenu{
+    display:none;
+    position: absolute;
+    height:0;
+    z-index:6;
+}
+
+#switchNetworkMenu div:not(#networkDesc){
+    position: relative;
+    left:6.3vw;
+    top: 6.28vw;
+    font-size:2vw;
+    letter-spacing: -0.05vw;
+    background-color: grey;
+    width: 18.5vw;
+    color: white;
+    padding-left:1vw;
+}
+
+#switchLobbyMenu ul,#switchNetworkMenu ul{
     position: relative;
     left: 25.75vw;
     top:0.75vw;
@@ -272,7 +298,11 @@ body{
     margin-bottom:0;
 }
 
-#switchLobbyMenu ul li{
+#switchNetworkMenu ul{
+    top:2.75vw;
+}
+
+#switchLobbyMenu ul li,#switchNetworkMenu ul li{
     padding-left:2.3vw;
     font-size:1.8vw;
     letter-spacing: 0.01vw;
@@ -280,11 +310,11 @@ body{
     padding-bottom: 0.1vw;
 }
 
-#switchLobbyMenu ul li:hover{
+#switchLobbyMenu ul li:hover,#switchNetworkMenu ul li:hover{
     background: -webkit-linear-gradient(left, rgba(199, 109, 41, 0.85) 0%, rgba(255, 110, 0, 0.25) 90%);
 }
 
-#lobbyDesc{
+#lobbyDesc,#networkDesc{
     position:relative;
     top: -3.7vw;
     left:48vw;
@@ -293,6 +323,11 @@ body{
     line-height: 2vw;
     letter-spacing:0.02vw;
 }
+
+#networkDesc{
+    top:-2vw;
+}
+
 
 #settingsWindow{
     display: none;
@@ -369,4 +404,15 @@ body{
     top: 6vw;
     width: 11.5vw;
     left: 8.5vw;
+}
+
+#switchTeams{
+    position: absolute;
+    bottom: -5.6vw;
+    right: 12vw;
+    background-color: white;
+    color: black;
+    width: 15vw;
+    text-align: center;
+    border: 1px solid black;
 }
