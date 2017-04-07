@@ -25,7 +25,7 @@ body{
     top: -20vh !important;
     width: 100%;
     height: 120vh;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.7);
     z-index: 6;
 }
 
@@ -126,13 +126,13 @@ body{
 }
 
 #lobby #settingsButton, #lobby #exitButton{
-    margin-bottom: -9.5vw;
+    margin-bottom: -9.4vw;
 }
 
 #leftSide{
     position:relative;
     float: left;
-    height: 43vw;
+    height: 39vw;
     width: 40.25%;
     margin-left:6.3vw;
     background-color:rgba(0,0,0,0.5)
@@ -147,11 +147,13 @@ body{
     font-size: 3.73vw;
     letter-spacing: -0.001vw;
     color: white;
+    margin-bottom:-0.1vw;
+    margin-left:7.1vw;
 }
 
 #leftside ul{
     padding:0;
-    margin-top:-0.1vw;
+    margin-top:0vw;
     height:9.4vw;
 }
 
@@ -223,7 +225,7 @@ body{
 #playerCount{
     font-size:1.7vw;
     padding-left:3.5vw;
-    margin-top:-0.18vw;
+    margin-top:-4.19vw;
     letter-spacing: 0.06vw;    
 }
 
@@ -248,75 +250,69 @@ body{
     display:none
 }
 
-#switchLobbyMenu{
+#switchLobbyMenu,#switchNetworkMenu,#switchMapMenu{
     display:none;
     position: absolute;
     height:0;
     z-index:6;
 }
 
-#switchLobbyMenu div:not(#lobbyDesc){
+#switchLobbyMenu div:not(#lobbyDesc),#switchNetworkMenu div:not(#networkDesc),#switchMapMenu div:not(#mapDesc){
     position: relative;
     left:6.3vw;
-    top: 4.28vw;
-    font-size:2vw;
+    top: 0vw;
+    font-size:1.98vw;
     letter-spacing: -0.05vw;
-    background-color: grey;
+    background-color: rgba(175,175,175,0.6);
     width: 18.5vw;
     color: white;
     padding-left:1vw;
-}
-
-#switchNetworkMenu{
-    display:none;
-    position: absolute;
-    height:0;
-    z-index:6;
 }
 
 #switchNetworkMenu div:not(#networkDesc){
-    position: relative;
-    left:6.3vw;
-    top: 6.28vw;
-    font-size:2vw;
-    letter-spacing: -0.05vw;
-    background-color: grey;
-    width: 18.5vw;
-    color: white;
-    padding-left:1vw;
+    top: 2.15vw;
 }
 
-#switchLobbyMenu ul,#switchNetworkMenu ul{
+#switchMapMenu div:not(#mapDesc){
+    top: 10.7vw;
+}
+
+#switchLobbyMenu ul,#switchNetworkMenu ul, #switchMapMenu ul{
     position: relative;
     left: 25.75vw;
-    top:0.75vw;
+    top:-3.55vw;
     padding:0;
     list-style-type: none;
-    background-color:grey;
+    background-color:rgba(175,175,175,0.6);
     width: 21vw;
     color: white;
     margin-bottom:0;
 }
 
 #switchNetworkMenu ul{
-    top:2.75vw;
+    top:-1.4vw;
 }
 
-#switchLobbyMenu ul li,#switchNetworkMenu ul li{
+#switchMapMenu ul{
+    top:4.2vw;
+}
+
+
+#switchLobbyMenu ul li,#switchNetworkMenu ul li,#switchMapMenu ul li{
     padding-left:2.3vw;
     font-size:1.8vw;
     letter-spacing: 0.01vw;
     padding-top:0.1vw;
-    padding-bottom: 0.1vw;
+    padding-bottom: 0.15vw;
 }
 
-#switchLobbyMenu ul li:hover,#switchNetworkMenu ul li:hover{
+#switchLobbyMenu ul li:hover,#switchNetworkMenu ul li:hover,#switchMapMenu ul li:hover{
     background: -webkit-linear-gradient(left, rgba(199, 109, 41, 0.85) 0%, rgba(255, 110, 0, 0.25) 90%);
 }
 
-#lobbyDesc,#networkDesc{
+#lobbyDesc,#networkDesc,#mapDesc{
     position:relative;
-    top: -3.7vw;
+    top: -8vw;
     left:48vw;
     width: 25vw;
     font-size:1.8vw;
@@ -325,9 +321,20 @@ body{
 }
 
 #networkDesc{
-    top:-2vw;
+    top:-5.9vw;
 }
 
+#mapDesc{
+    position:absolute;
+    top:10.6vw;
+}
+
+#mapImage{
+    position: absolute;
+    top: 21.5vw;
+    left:48vw;
+    width: 25vw;
+}
 
 #settingsWindow{
     display: none;
