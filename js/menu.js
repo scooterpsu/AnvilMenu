@@ -102,7 +102,9 @@ $(window).load(function(){
                         $("#switchMapMenu div:not(#mapDesc)").css('top', '6.5vw');
                         $("#switchMapMenu ul").css('top', '3vw');
                         $("#mapDesc").css('top', '18vw');
-                        $("#mapImage").css('top', '6.5vw');                    } else {                        $("#gameMode").hide();                        $("#title").text("FORGE LOBBY");                        $("#startGame").text("START FORGE");
+                        $("#mapImage").css('top', '6.5vw');
+                    } else {
+                        $("#gameMode").hide();                        $("#title").text("FORGE LOBBY");                        $("#startGame").text("START FORGE");
                         $("#switchMapMenu div:not(#mapDesc)").css('top', '4.3vw');
                         $("#switchMapMenu ul").css('top', '0.75vw');
                         $("#mapDesc").css('top', '15.75vw');
@@ -113,7 +115,13 @@ $(window).load(function(){
             index = 0;
             $(".selectable").removeClass("selected");
             $("#" + controllerMenu + " .selectable:first").addClass("selected");
-        };    });        $("#blackout").click(function(){        hideAll();    });    $("#multiLobby").mouseover(function(){        $("#lobbyDesc").text(lobbyDesc[2]);    }).click(function(){        dew.command('Server.LobbyType 2', {}).then(function(response){            dew.show();          });        });    $("#forgeLobby").mouseover(function(){        $("#lobbyDesc").text(lobbyDesc[3]);    }).click(function(){        dew.command('Server.LobbyType 3', {}).then(function(response){            dew.show();          });        });        $("#onlineNetwork").mouseover(function(){        $("#networkDesc").text(networkDesc[3]);    }).click(function(){        dew.command('Server.Mode 3', {}).then(function(response){            dew.show();          });        });    $("#offlineNetwork").mouseover(function(){        $("#networkDesc").text(networkDesc[4]);    }).click(function(){        dew.command('Server.Mode 4', {}).then(function(response){            dew.show();          });        });    $("#startGame").click(function(){        dew.command('start', {}).then(function(response){            dew.hide();        });        });        $("#switchTeams").click(function(){        dew.command('Input.UIButtonPress 4', {}).then(function(){            setTimeout(function(){                dew.show();            },1500);        });     });
+        };
+    });
+    
+    $("#blackout").click(function(){        hideAll();
+    });
+    
+    $("#multiLobby").mouseover(function(){        $("#lobbyDesc").text(lobbyDesc[2]);    }).click(function(){        dew.command('Server.LobbyType 2', {}).then(function(response){            dew.show();          });        });    $("#forgeLobby").mouseover(function(){        $("#lobbyDesc").text(lobbyDesc[3]);    }).click(function(){        dew.command('Server.LobbyType 3', {}).then(function(response){            dew.show();          });        });        $("#onlineNetwork").mouseover(function(){        $("#networkDesc").text(networkDesc[3]);    }).click(function(){        dew.command('Server.Mode 3', {}).then(function(response){            dew.show();          });        });    $("#offlineNetwork").mouseover(function(){        $("#networkDesc").text(networkDesc[4]);    }).click(function(){        dew.command('Server.Mode 4', {}).then(function(response){            dew.show();          });        });    $("#startGame").click(function(){        dew.command('start', {}).then(function(response){            dew.hide();        });        });        $("#switchTeams").click(function(){        dew.command('Input.UIButtonPress 4', {}).then(function(){            setTimeout(function(){                dew.show();            },1500);        });     });
     
     $("#mainmenu #exitButton").click(function(){
         dew.command('Exit', {}).then(function(){}); 
@@ -121,7 +129,11 @@ $(window).load(function(){
     
     $("#lobby #exitButton").click(function(){
         dew.command('Exit', {}).then(function(){}); 
-    });    $(document).keydown(function(e){        if(e.keyCode === 27) { //ESC            dew.command('Input.UIButtonPress 1', {}).then(function(response){                dew.show();            });          }else if (e.keyCode == 192){ //~            dew.show("console");        }    });
+    });
+
+    $(document).keydown(function(e){
+        if(e.keyCode === 27) { //ESC
+            dew.command('Input.UIButtonPress 1', {}).then(function(response){                dew.show();            });          }else if (e.keyCode == 192){ //~            dew.show("console");        }    });
     
     setInterval( CheckPageFocus, 200 );
     if(controllerSupport()){
@@ -142,12 +154,31 @@ $(window).load(function(){
                 window.clearInterval(checkGP);
             }
         }, 500);
-    }});
-function hexToRgb(hex, opacity){    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);    return "rgba(" + parseInt(result[1], 16) + "," + parseInt(result[2], 16) + "," + parseInt(result[3], 16) + "," + opacity + ")";}
+    }
+});
 
-function adjustColor(color, amount){    var colorhex = (color.split("#")[1]).match(/.{2}/g);    for (var i = 0; i < 3; i++){        var e = parseInt(colorhex[i], 16);        e += amount;        if(amount > 0){            colorhex[i] = ((e > 255) ? 255 : e).toString(16);        }else{            colorhex[i] = ((e < 0) ? 0 : e).toString(16);                   }    }    return "#" + colorhex[0] + colorhex[1] + colorhex[2];}
+function hexToRgb(hex, opacity){
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return "rgba(" + parseInt(result[1], 16) + "," + parseInt(result[2], 16) + "," + parseInt(result[3], 16) + "," + opacity + ")";
+}
 
-function getKeyByValue(object, value) {  return Object.keys(object).find(key => object[key] === value);}
+function adjustColor(color, amount){
+    var colorhex = (color.split("#")[1]).match(/.{2}/g);
+    for (var i = 0; i < 3; i++){
+        var e = parseInt(colorhex[i], 16);
+        e += amount;
+        if(amount > 0){
+            colorhex[i] = ((e > 255) ? 255 : e).toString(16);
+        }else{
+            colorhex[i] = ((e < 0) ? 0 : e).toString(16);
+        }
+    }
+    return "#" + colorhex[0] + colorhex[1] + colorhex[2];
+}
+
+function getKeyByValue(object, value) {
+    return Object.keys(object).find(key => object[key] === value);
+}
 
 function asc_sort(a, b){
     return ($(b).text()) < ($(a).text()) ? 1 : -1;    
