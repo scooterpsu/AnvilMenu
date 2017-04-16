@@ -25,16 +25,16 @@
 
 <div id="lobby">
 
-        <div id="title"></div>
-        <div id="leftSide">
+    <div id="title"></div>
+    <div id="leftSide">
         <ul>
-            <li id="switchLobby">SWITCH LOBBY</li>
-            <li id="switchNetwork"></li>
-            <li id="gameMode"></li>
-            <li id="switchMap"></li>
+            <li id="switchLobby" class="selectable">SWITCH LOBBY</li>
+            <li id="switchNetwork" class="selectable"></li>
+            <li id="gameMode" class="selectable"></li>
+            <li id="switchMap" class="selectable"></li>
         </ul>
-        <div id="startGame"></div>
-        <div id="gameOptions">GAME OPTIONS</div>
+        <div id="startGame" class="selectable"></div>
+        <div id="gameOptions" class="selectable">GAME OPTIONS</div>
         <div id="status"></div>
         <img id="mapPic">
         <img id="varPic">
@@ -44,29 +44,32 @@
             <div>Settings</div><div>Select</div><div>Leave</div><div>Friends</div>
         </div>
     </div>
-    
+
     <div id="rightSide">
         <div id="playerCount"></div>
         <ul id="playerList">
         </ul>
         <div id="switchTeams">Change Teams</div>
     </div>
+
     <div id="switchLobbyMenu">
         <div>SWITCH LOBBY</div>
         <ul>
-            <li id="multiLobby">MULTIPLAYER</li>
-            <li id="forgeLobby">FORGE</li>
+            <li id="multiLobby" class="selectable">MULTIPLAYER</li>
+            <li id="forgeLobby" class="selectable">FORGE</li>
         </ul>
         <div id="lobbyDesc">Take your party to combat and objective-based missions that you select and design. Your rules, your maps, your game.</div>
     </div>
+
     <div id="switchNetworkMenu">
         <div>NETWORK</div>
         <ul>
-            <li id="onlineNetwork">ONLINE</li>
-            <li id="offlineNetwork">OFFLINE</li>
+            <li id="onlineNetwork" class="selectable">ONLINE</li>
+            <li id="offlineNetwork" class="selectable">OFFLINE</li>
         </ul>
         <div id="networkDesc">Play only on this PC.</div>
     </div>
+
     <div id="switchMapMenu">
         <div>MAP</div>
         <ul id="mapList">
@@ -74,6 +77,7 @@
         <div id="mapDesc"></div>
         <img id="mapImage">
     </div>
+        
     <div id="exitButton">EXIT GAME</div>
     <div id="settingsButton">SETTINGS</div>
 </div>

@@ -23,10 +23,10 @@ var mapTable = [
     {ID: 340, file: "riverworld", name: "Valhalla", desc: "The crew of V-398 barely survived their unplanned landing in this gorge...this curious gorge. <br><br>6-16 players."},
     {ID: 400, file: "shrine", name: "Sandtrap", desc: "Although the Brute occupiers have been driven from this ancient structure, they left plenty to remember them by. <br><br>6-16 players"},
     {ID: 30, file: "zanzibar", name: "Last Resort", desc: "Remote industrial sites like this one are routinely requisitioned and used as part of Spartan training exercises. <br><br>4-12 players."},
-    {ID: 703, file: "s3d_edge", name: "Edge", desc: "The remote frontier world of Partition has prov{IDed this ancient databank with the safety of seclusion. <br><br>6-16 players."},
+    {ID: 703, file: "s3d_edge", name: "Edge", desc: "The remote frontier world of Partition has provided this ancient databank with the safety of seclusion. <br><br>6-16 players."},
     {ID: 705, file: "s3d_avalanche", name: "Diamondback", desc: "Hot winds blow over what should be a dead moon. A reminder of the power Forerunners once wielded. <br><br>6-16 players."},
     {ID: 700, file: "s3d_reactor", name: "Reactor", desc: "Being constructed just prior to the Invasion, its builders had to evacuate before it was completed. <br><br>6-16 players."},
-    {ID: 31, file: "s3d_turf", name: "Icebox", desc: "Downtown Tyumen's Precinct 13 offers an {IDeal context for urban combat training. <br><br>4-10 players."},
+    {ID: 31, file: "s3d_turf", name: "Icebox", desc: "Downtown Tyumen's Precinct 13 offers an ideal context for urban combat training. <br><br>4-10 players."},
     {ID: 3005, file: "005_intro", name: "005_intro", desc:"005_intro"},
     {ID: 3010, file: "010_jungle", name: "010_jungle", desc:"010_jungle"},
     {ID: 3020, file: "020_base", name: "020_base", desc:"020_base"},
@@ -72,6 +72,7 @@ var mapTable = [
                     $('<li>', {
                         text: result[0].name.toUpperCase(),
                         id: result[0].id,
+                        class: "selectable",
                         'data-filename': result[0].file,
                         'data-desc':result[0].desc
                     }).mouseover(function(){
@@ -88,8 +89,7 @@ var mapTable = [
         $("#mapList li").sort(asc_sort).appendTo('#mapList');
         $('#mapDesc').html($("#mapList li:eq(0)").attr('data-desc'));
         $("#mapImage").attr("src", "images/maps/" + $("#mapList li:eq(0)").attr('data-filename') + ".png");
-    });        dew.on("show", function(){        $("#blackout").hide();        $("#switchLobbyMenu").hide();            $("#switchNetworkMenu").hide(); 
-        $("#switchMapMenu").hide();        dew.getSessionInfo().then(function(e){            if(e.established){                $("#mainmenu").hide();                $("#lobby").show();                dew.getGameVariantInfo().then(function(x){                    if(x.name != "Forge"){                        $("#gameMode").show();                        $("#gameMode").text("GAME: "+x.name.toUpperCase());                        $("#title").text("MULTIPLAYER LOBBY");                        $("#startGame").text("START GAME");
+    });        dew.on("show", function(){        hideAll();        dew.getSessionInfo().then(function(e){            if(e.established){                $("#mainmenu").hide();                $("#lobby").show();                dew.getGameVariantInfo().then(function(x){                    if(x.name != "Forge"){                        $("#gameMode").show();                        $("#gameMode").text("GAME: "+x.name.toUpperCase());                        $("#title").text("MULTIPLAYER LOBBY");                        $("#startGame").text("START GAME");
                         $("#switchMapMenu div:not(#mapDesc)").css('top', '6.5vw');
                         $("#switchMapMenu ul").css('top', '3vw');
                         $("#mapDesc").css('top', '18vw');
@@ -98,13 +98,13 @@ var mapTable = [
                         $("#switchMapMenu ul").css('top', '0.75vw');
                         $("#mapDesc").css('top', '15.75vw');
                         $("#mapImage").css('top', '4.25vw');                    }                    $("#varPic").attr("src", "images/gametypes/" + gameType[x.mode] + ".png");                    dew.getMapVariantInfo().then(function(i){                        $("#switchMap").text("MAP: "+i.name.toUpperCase());
-                        var mapFile = $.grep(mapTable, function(e){ return e.ID == i.mapId; });                        $("#mapPic").attr("src", "images/maps/" + mapFile[0].file + ".png");                        if(x.name == "Forge"){ x.name = "Edit Objects"};                        $("#gameDesc").text(x.name + " on " + i.name);                        dew.command('Server.ListPlayersJSON', {}).then(function(l){                            var playerArray = JSON.parse(l);                            $('#playerList').empty();                            for(var i=0; i < playerArray.length; i++){                                var bgColor = playerArray[i].color;                                if(e.hasTeams){                                    bgColor = teamArray[playerArray[i].teamIndex].color;                                }                                $('#playerList').append(                                    $('<li>', {                                        text: playerArray[i].name,                                        css: {                                            backgroundColor: hexToRgb(bgColor,cardOpacity)                                        },                                        id: playerArray[i].name,                                        'data-color': bgColor,                                    }).mouseover(function(){                                        col = $(this).attr('data-color'),                                        bright = adjustColor(col, 30);                                        $(this).css("background-color", hexToRgb(bright, cardOpacity));                                    }).mouseout(function(){                                        col = $(this).attr('data-color');                                        $(this).css("background-color", hexToRgb(col, cardOpacity));                                    })                                )                            }                            dew.command('Server.Mode', {}).then(function(m){                                $("#switchNetwork").text("NETWORK: "+serverMode[m].toUpperCase());                                $("#status").html(networkStatus[m]);                                if(e.isHost){                                    var maxPlayers = 2;                                    if(m = 3){                                        dew.command('Server.MaxPlayers', {}).then(function(p){                                            maxPlayers = p;                                        });                                    }                                    //console.log('Max Players:' + maxPlayers);                                    $("#playerCount").text(playerArray.length + " Player  (" + maxPlayers + " max)");                                }                                dew.command('Server.LobbyType', {}).then(function(t){                                    //console.log('Lobby Type:' + lobbyType[t]);                                });                            });                        });                    });                });            } else {                $("#lobby").hide();                $("#mainmenu").show();            }        });    });        $("#hostMultiplayer").click(function(){        dew.command('Server.LobbyType 2', {}).then(function(response){            dew.show();          });    });       $("#hostForge").click(function(){        dew.command('Server.LobbyType 3', {}).then(function(response){            dew.show();          });      });             $("#switchLobby").click(function(){        $("#blackout").show();        $("#switchLobbyMenu").show();    });    $("#switchNetwork").click(function(){        $("#blackout").show();        $("#switchNetworkMenu").show();    });
-    
-    $("#switchMap").click(function(){
-        $("#blackout").show();
-        $("#switchMapMenu").show();
-    });        $("#blackout").click(function(){        $("#blackout").hide();        $("#switchLobbyMenu").hide();           $("#switchNetworkMenu").hide();
-        $("#switchMapMenu").hide();    });    $("#multiLobby").mouseover(function(){        $("#lobbyDesc").text(lobbyDesc[2]);    }).click(function(){        dew.command('Server.LobbyType 2', {}).then(function(response){            dew.show();          });        });    $("#forgeLobby").mouseover(function(){        $("#lobbyDesc").text(lobbyDesc[3]);    }).click(function(){        dew.command('Server.LobbyType 3', {}).then(function(response){            dew.show();          });        });        $("#onlineNetwork").mouseover(function(){        $("#networkDesc").text(networkDesc[3]);    }).click(function(){        dew.command('Server.Mode 3', {}).then(function(response){            dew.show();          });        });    $("#offlineNetwork").mouseover(function(){        $("#networkDesc").text(networkDesc[4]);    }).click(function(){        dew.command('Server.Mode 4', {}).then(function(response){            dew.show();          });        });    $("#startGame").click(function(){        dew.command('start', {}).then(function(response){            dew.hide();        });        });        $("#switchTeams").click(function(){        dew.command('Input.UIButtonPress 4', {}).then(function(){            setTimeout(function(){                dew.show();            },1500);        });     });
+                        var mapFile = $.grep(mapTable, function(e){ return e.ID == i.mapId; });                        $("#mapPic").attr("src", "images/maps/" + mapFile[0].file + ".png");                        if(x.name == "Forge"){ x.name = "Edit Objects"};                        $("#gameDesc").text(x.name + " on " + i.name);                        dew.command('Server.ListPlayersJSON', {}).then(function(l){                            var playerArray = JSON.parse(l);                            $('#playerList').empty();                            for(var i=0; i < playerArray.length; i++){                                var bgColor = playerArray[i].color;                                if(e.hasTeams){                                    bgColor = teamArray[playerArray[i].teamIndex].color;                                }                                $('#playerList').append(                                    $('<li>', {                                        text: playerArray[i].name,                                        css: {                                            backgroundColor: hexToRgb(bgColor,cardOpacity)                                        },                                        id: playerArray[i].name,                                        'data-color': bgColor,                                    }).mouseover(function(){                                        col = $(this).attr('data-color'),                                        bright = adjustColor(col, 30);                                        $(this).css("background-color", hexToRgb(bright, cardOpacity));                                    }).mouseout(function(){                                        col = $(this).attr('data-color');                                        $(this).css("background-color", hexToRgb(col, cardOpacity));                                    })                                )                            }                            dew.command('Server.Mode', {}).then(function(m){                                $("#switchNetwork").text("NETWORK: "+serverMode[m].toUpperCase());                                $("#status").html(networkStatus[m]);                                if(e.isHost){                                    var maxPlayers = 2;                                    if(m = 3){                                        dew.command('Server.MaxPlayers', {}).then(function(p){                                            maxPlayers = p;                                        });                                    }                                    //console.log('Max Players:' + maxPlayers);                                    $("#playerCount").text(playerArray.length + " Player  (" + maxPlayers + " max)");                                }                                dew.command('Server.LobbyType', {}).then(function(t){                                    //console.log('Lobby Type:' + lobbyType[t]);                                });                            });                        });                    });                });            } else {                $("#lobby").hide();                $("#mainmenu").show();            }        });    });        $("#hostMultiplayer").click(function(){        dew.command('Server.LobbyType 2', {}).then(function(response){            dew.show();          });    });       $("#hostForge").click(function(){        dew.command('Server.LobbyType 3', {}).then(function(response){            dew.show();          });      });             $("#switchLobby,#switchNetwork,#switchMap").click(function(e){
+        controllerMenu = e.target.id+"Menu"        $("#blackout").show();        $("#"+controllerMenu).show();
+        if($("#"+controllerMenu).length){
+            index = 0;
+            $(".selectable").removeClass("selected");
+            $("#" + controllerMenu + " .selectable:first").addClass("selected");
+        };    });        $("#blackout").click(function(){        hideAll();    });    $("#multiLobby").mouseover(function(){        $("#lobbyDesc").text(lobbyDesc[2]);    }).click(function(){        dew.command('Server.LobbyType 2', {}).then(function(response){            dew.show();          });        });    $("#forgeLobby").mouseover(function(){        $("#lobbyDesc").text(lobbyDesc[3]);    }).click(function(){        dew.command('Server.LobbyType 3', {}).then(function(response){            dew.show();          });        });        $("#onlineNetwork").mouseover(function(){        $("#networkDesc").text(networkDesc[3]);    }).click(function(){        dew.command('Server.Mode 3', {}).then(function(response){            dew.show();          });        });    $("#offlineNetwork").mouseover(function(){        $("#networkDesc").text(networkDesc[4]);    }).click(function(){        dew.command('Server.Mode 4', {}).then(function(response){            dew.show();          });        });    $("#startGame").click(function(){        dew.command('start', {}).then(function(response){            dew.hide();        });        });        $("#switchTeams").click(function(){        dew.command('Input.UIButtonPress 4', {}).then(function(){            setTimeout(function(){                dew.show();            },1500);        });     });
     
     $("#mainmenu #exitButton").click(function(){
         dew.command('Exit', {}).then(function(){}); 
@@ -112,8 +112,110 @@ var mapTable = [
     
     $("#lobby #exitButton").click(function(){
         dew.command('Exit', {}).then(function(){}); 
-    });    $(document).keydown(function(e){        if(e.keyCode === 27) { //ESC            dew.command('Input.UIButtonPress 1', {}).then(function(response){                dew.show();            });          }else if (e.keyCode == 192){ //~            dew.show("console");        }    });});function hexToRgb(hex, opacity){    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);    return "rgba(" + parseInt(result[1], 16) + "," + parseInt(result[2], 16) + "," + parseInt(result[3], 16) + "," + opacity + ")";}function adjustColor(color, amount){    var colorhex = (color.split("#")[1]).match(/.{2}/g);    for (var i = 0; i < 3; i++){        var e = parseInt(colorhex[i], 16);        e += amount;        if(amount > 0){            colorhex[i] = ((e > 255) ? 255 : e).toString(16);        }else{            colorhex[i] = ((e < 0) ? 0 : e).toString(16);                   }    }    return "#" + colorhex[0] + colorhex[1] + colorhex[2];}function getKeyByValue(object, value) {  return Object.keys(object).find(key => object[key] === value);}
+    });    $(document).keydown(function(e){        if(e.keyCode === 27) { //ESC            dew.command('Input.UIButtonPress 1', {}).then(function(response){                dew.show();            });          }else if (e.keyCode == 192){ //~            dew.show("console");        }    });
+    
+    setInterval( CheckPageFocus, 200 );
+    if(controllerSupport()){
+        $(window).on("gamepadconnected", function(){
+            hasGP = true;
+            console.log("Gamepad connected");
+            $("#" + controllerMenu + " .selectable:first").addClass("selected");
+            repGP = window.setInterval(checkGamepad,100);
+        });
+        $(window).on("gamepaddisconnected", function(){
+            hasGP = false;
+            console.log("Gamepad disconnected");
+            window.clearInterval(repGP);
+        });
+        var checkGP = window.setInterval(function(){
+            if(navigator.getGamepads()[0]){
+                if(!hasGP) $(window).trigger("gamepadconnected");
+                window.clearInterval(checkGP);
+            }
+        }, 500);
+    }});function hexToRgb(hex, opacity){    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);    return "rgba(" + parseInt(result[1], 16) + "," + parseInt(result[2], 16) + "," + parseInt(result[3], 16) + "," + opacity + ")";}function adjustColor(color, amount){    var colorhex = (color.split("#")[1]).match(/.{2}/g);    for (var i = 0; i < 3; i++){        var e = parseInt(colorhex[i], 16);        e += amount;        if(amount > 0){            colorhex[i] = ((e > 255) ? 255 : e).toString(16);        }else{            colorhex[i] = ((e < 0) ? 0 : e).toString(16);                   }    }    return "#" + colorhex[0] + colorhex[1] + colorhex[2];}function getKeyByValue(object, value) {  return Object.keys(object).find(key => object[key] === value);}
 
 function asc_sort(a, b){
     return ($(b).text()) < ($(a).text()) ? 1 : -1;    
+}
+
+function CheckPageFocus() {
+    if ( document.hasFocus() ) {
+        pageFocus = true;
+    } else {
+        pageFocus = false;
+    }
+}
+
+function controllerSupport(){
+    return "getGamepads" in navigator;
+}
+
+var pageFocus = false;
+var hasGP = false;
+var repGP;
+var timestamp; 
+var lastButtons = [];
+function checkGamepad(){
+    var gamepad = navigator.getGamepads()[0];
+    if(gamepad.timestamp != timestamp){
+        if(pageFocus){
+            for( var i = 0; i < gamepad.buttons.length; i++ ) {
+                currentState = gamepad.buttons[i].pressed
+                var prevState = lastButtons[i];
+                if( !prevState && currentState ){ //Button i Pressed    
+                    buttonAction(i);                
+                }else if( prevState && !currentState ){//Button i Released
+                }
+                lastButtons[i] = currentState;
+            }
+        }
+        timestamp = gamepad.timestamp;
+    }
+}
+
+function buttonAction(i){
+    //console.log(i);
+    switch (i) {
+        case 0: // A
+            $('#' + controllerMenu + ' .selected').click();
+            break;
+        case 1: // B
+            hideAll();
+            break;
+        case 12: // Up
+            previous();
+            break;
+        case 13: // Down
+            next();
+            break;
+        default:
+            console.log("nothing associated with " + i);
+    }  
+}
+
+var index = 0;
+var controllerMenu = "leftSide";
+
+function previous() {
+   var list = $('#' + controllerMenu + ' .selectable:visible').removeClass('selected');
+   index = (index - 1) % list.length;
+   list.eq(index).addClass('selected');
+}
+
+function next() {
+   var list = $('#' + controllerMenu + ' .selectable:visible').removeClass('selected');
+   index = (index + 1) % list.length;
+   list.eq(index).addClass('selected');
+}
+
+function hideAll(){
+    $("#blackout").hide();
+    $("#switchLobbyMenu").hide();   
+    $("#switchNetworkMenu").hide();
+    $("#switchMapMenu").hide();
+    controllerMenu = "leftSide";
+    index = 0;
+    $(".selectable").removeClass("selected");
+    $("#" + controllerMenu + " .selectable:first").addClass("selected");
 }
