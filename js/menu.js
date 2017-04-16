@@ -98,7 +98,9 @@ $(window).load(function(){
         $("#mapList li").sort(asc_sort).appendTo('#mapList');
         $('#mapDesc').html($("#mapList li:eq(0)").attr('data-desc'));
         $("#mapImage").attr("src", "images/maps/" + $("#mapList li:eq(0)").attr('data-filename') + ".png");
-    });        dew.on("show", function(){
+    });
+    
+    dew.on("show", function(){
         hideAll();
         dew.getSessionInfo().then(function(e){
             if(e.established){
@@ -172,7 +174,21 @@ $(window).load(function(){
                                     //console.log('Lobby Type:' + lobbyType[t]);
                                 });
                             });
-                        });                    });                });            } else {                $("#lobby").hide();                $("#mainmenu").show();            }        });    });        $("#hostMultiplayer").click(function(){        dew.command('Server.LobbyType 2', {}).then(function(response){            dew.show();          });    });       $("#hostForge").click(function(){        dew.command('Server.LobbyType 3', {}).then(function(response){            dew.show();          });      });             $("#switchLobby,#switchNetwork,#switchMap").click(function(e){
+                        });                    });                });            } else {                $("#lobby").hide();                $("#mainmenu").show();            }        });    });
+    
+    $("#hostMultiplayer").click(function(){
+        dew.command('Server.LobbyType 2', {}).then(function(response){
+            dew.show();
+        });
+    });
+    
+    $("#hostForge").click(function(){
+        dew.command('Server.LobbyType 3', {}).then(function(response){
+            dew.show();
+        });
+    });
+    
+    $("#switchLobby,#switchNetwork,#switchMap").click(function(e){
         controllerMenu = e.target.id+"Menu"        $("#blackout").show();        $("#"+controllerMenu).show();
         if($("#"+controllerMenu).length){
             index = 0;
