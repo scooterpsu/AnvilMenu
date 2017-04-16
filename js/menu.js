@@ -51,7 +51,9 @@ var mapTable = [
     {ID: 6150, file: "sc150", name: "sc150", desc:"sc150"}
 ];
 var gameType = {1:"ctf",2:"slayer",3:"oddball",4:"koth",5:"forge",6:"vip",7:"juggernaut",8:"territories",9:"assault",10:"infection"};
-var lobbyType = { 0 : "Campaign", 1 : "Matchmaking", 2 : "Multiplayer", 3 : "Forge", 4 : "Theater"};var serverMode = {0 : "Xbox Live (Open Party)", 1 : "Xbox Live (Friends Only)", 2 : "Xbox Live (Invite Only)", 3 : "Online", 4 : "Offline"};var teamArray = [
+var lobbyType = { 0 : "Campaign", 1 : "Matchmaking", 2 : "Multiplayer", 3 : "Forge", 4 : "Theater"};
+var serverMode = {0 : "Xbox Live (Open Party)", 1 : "Xbox Live (Friends Only)", 2 : "Xbox Live (Invite Only)", 3 : "Online", 4 : "Offline"};
+var teamArray = [
     {name: 'red', color: '#620B0B'},
     {name: 'blue', color: '#0B2362'},
     {name: 'green', color: '#1F3602'},
@@ -140,7 +142,12 @@ $(window).load(function(){
                 window.clearInterval(checkGP);
             }
         }, 500);
-    }});function hexToRgb(hex, opacity){    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);    return "rgba(" + parseInt(result[1], 16) + "," + parseInt(result[2], 16) + "," + parseInt(result[3], 16) + "," + opacity + ")";}function adjustColor(color, amount){    var colorhex = (color.split("#")[1]).match(/.{2}/g);    for (var i = 0; i < 3; i++){        var e = parseInt(colorhex[i], 16);        e += amount;        if(amount > 0){            colorhex[i] = ((e > 255) ? 255 : e).toString(16);        }else{            colorhex[i] = ((e < 0) ? 0 : e).toString(16);                   }    }    return "#" + colorhex[0] + colorhex[1] + colorhex[2];}function getKeyByValue(object, value) {  return Object.keys(object).find(key => object[key] === value);}
+    }});
+function hexToRgb(hex, opacity){    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);    return "rgba(" + parseInt(result[1], 16) + "," + parseInt(result[2], 16) + "," + parseInt(result[3], 16) + "," + opacity + ")";}
+
+function adjustColor(color, amount){    var colorhex = (color.split("#")[1]).match(/.{2}/g);    for (var i = 0; i < 3; i++){        var e = parseInt(colorhex[i], 16);        e += amount;        if(amount > 0){            colorhex[i] = ((e > 255) ? 255 : e).toString(16);        }else{            colorhex[i] = ((e < 0) ? 0 : e).toString(16);                   }    }    return "#" + colorhex[0] + colorhex[1] + colorhex[2];}
+
+function getKeyByValue(object, value) {  return Object.keys(object).find(key => object[key] === value);}
 
 function asc_sort(a, b){
     return ($(b).text()) < ($(a).text()) ? 1 : -1;    
