@@ -200,7 +200,7 @@ $(window).load(function(){
         controllerMenu = e.target.id+"Menu";
         $("#blackout").show();
         $("#"+controllerMenu).show();
-        if($("#"+controllerMenu).length){
+        if(hasGP && $("#"+controllerMenu).length){
             index = 0;
             $(".selectable").removeClass("selected");
             $("#" + controllerMenu + " .selectable:first").addClass("selected");
