@@ -49,7 +49,9 @@ var mapTable = [
     {ID: 6130, file: "sc130", name: "sc130", desc:"sc130"},
     {ID: 6140, file: "sc140", name: "sc140", desc:"sc140"},
     {ID: 6150, file: "sc150", name: "sc150", desc:"sc150"}
-];var gameType = {1:"ctf",2:"slayer",3:"oddball",4:"koth",5:"forge",6:"vip",7:"juggernaut",8:"territories",9:"assault",10:"infection"};var lobbyType = { 0 : "Campaign", 1 : "Matchmaking", 2 : "Multiplayer", 3 : "Forge", 4 : "Theater"};var serverMode = {0 : "Xbox Live (Open Party)", 1 : "Xbox Live (Friends Only)", 2 : "Xbox Live (Invite Only)", 3 : "Online", 4 : "Offline"};var teamArray = [
+];
+var gameType = {1:"ctf",2:"slayer",3:"oddball",4:"koth",5:"forge",6:"vip",7:"juggernaut",8:"territories",9:"assault",10:"infection"};
+var lobbyType = { 0 : "Campaign", 1 : "Matchmaking", 2 : "Multiplayer", 3 : "Forge", 4 : "Theater"};var serverMode = {0 : "Xbox Live (Open Party)", 1 : "Xbox Live (Friends Only)", 2 : "Xbox Live (Invite Only)", 3 : "Online", 4 : "Offline"};var teamArray = [
     {name: 'red', color: '#620B0B'},
     {name: 'blue', color: '#0B2362'},
     {name: 'green', color: '#1F3602'},
@@ -60,8 +62,13 @@ var mapTable = [
     {name: 'pink', color: '#FF4D8A'}, 
     {name: 'white', color: '#D8D8D8'}, 
     {name: 'black', color: '#0B0B0B'}           
-];var cardOpacity = 0.9;var networkStatus = {0 : "Xbox Live (Open Party)", 1 : "Xbox Live (Friends Only)", 2 : "Xbox Live (Invite Only)", 3 : "Ready.<br>This party is open for others to join.", 4 : "Ready.<br>This party is local to your PC. To play with others, select Network and the choose Online."};var lobbyDesc = { 0 : "Campaign", 1 : "Matchmaking", 2 : "Take your party to combat and objective-based missions that you select and design. Your rules, your maps, your game.", 3 : "Take your party to collaborate in real time to edit and play variations of your favorite maps, form the subtle to the insane.", 4 : "Theater"};var networkDesc = {0 : "Xbox Live (Open Party)", 1 : "Xbox Live (Friends Only)", 2 : "Xbox Live (Invite Only)", 3 : "Play with others over your local area network, VPN or Online.", 4 : "Play only on this PC."};
-$(window).load(function(){
+];
+var cardOpacity = 0.9;
+var networkStatus = {0 : "Xbox Live (Open Party)", 1 : "Xbox Live (Friends Only)", 2 : "Xbox Live (Invite Only)", 3 : "Ready.<br>This party is open for others to join.", 4 : "Ready.<br>This party is local to your PC. To play with others, select Network and the choose Online."};
+var lobbyDesc = { 0 : "Campaign", 1 : "Matchmaking", 2 : "Take your party to combat and objective-based missions that you select and design. Your rules, your maps, your game.", 3 : "Take your party to collaborate in real time to edit and play variations of your favorite maps, form the subtle to the insane.", 4 : "Theater"};
+var networkDesc = {0 : "Xbox Live (Open Party)", 1 : "Xbox Live (Friends Only)", 2 : "Xbox Live (Invite Only)", 3 : "Play with others over your local area network, VPN or Online.", 4 : "Play only on this PC."};
+
+$(window).load(function(){
     dew.command('Game.ListMaps', {}).then(function(response){
         var temp = response.split(",");
         $('#mapList').empty();
@@ -214,8 +221,10 @@ function hideAll(){
     $("#switchLobbyMenu").hide();   
     $("#switchNetworkMenu").hide();
     $("#switchMapMenu").hide();
-    controllerMenu = "leftSide";
-    index = 0;
-    $(".selectable").removeClass("selected");
-    $("#" + controllerMenu + " .selectable:first").addClass("selected");
+    if(hasGP){
+        controllerMenu = "leftSide";
+        index = 0;
+        $(".selectable").removeClass("selected");
+        $("#" + controllerMenu + " .selectable:first").addClass("selected");
+    }
 }
