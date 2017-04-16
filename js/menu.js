@@ -174,7 +174,15 @@ $(window).load(function(){
                                     //console.log('Lobby Type:' + lobbyType[t]);
                                 });
                             });
-                        });                    });                });            } else {                $("#lobby").hide();                $("#mainmenu").show();            }        });    });
+                        });
+                    });
+                });
+            } else {
+                $("#lobby").hide();
+                $("#mainmenu").show();
+            }
+        });
+    });
     
     $("#hostMultiplayer").click(function(){
         dew.command('Server.LobbyType 2', {}).then(function(response){
@@ -189,7 +197,9 @@ $(window).load(function(){
     });
     
     $("#switchLobby,#switchNetwork,#switchMap").click(function(e){
-        controllerMenu = e.target.id+"Menu"        $("#blackout").show();        $("#"+controllerMenu).show();
+        controllerMenu = e.target.id+"Menu";
+        $("#blackout").show();
+        $("#"+controllerMenu).show();
         if($("#"+controllerMenu).length){
             index = 0;
             $(".selectable").removeClass("selected");
@@ -197,7 +207,8 @@ $(window).load(function(){
         };
     });
     
-    $("#blackout").click(function(){        hideAll();
+    $("#blackout").click(function(){
+        hideAll();
     });
     
     $("#multiLobby").mouseover(function(){        $("#lobbyDesc").text(lobbyDesc[2]);    }).click(function(){        dew.command('Server.LobbyType 2', {}).then(function(response){            dew.show();          });        });    $("#forgeLobby").mouseover(function(){        $("#lobbyDesc").text(lobbyDesc[3]);    }).click(function(){        dew.command('Server.LobbyType 3', {}).then(function(response){            dew.show();          });        });        $("#onlineNetwork").mouseover(function(){        $("#networkDesc").text(networkDesc[3]);    }).click(function(){        dew.command('Server.Mode 3', {}).then(function(response){            dew.show();          });        });    $("#offlineNetwork").mouseover(function(){        $("#networkDesc").text(networkDesc[4]);    }).click(function(){        dew.command('Server.Mode 4', {}).then(function(response){            dew.show();          });        });    $("#startGame").click(function(){        dew.command('start', {}).then(function(response){            dew.hide();        });        });        $("#switchTeams").click(function(){        dew.command('Input.UIButtonPress 4', {}).then(function(){            setTimeout(function(){                dew.show();            },1500);        });     });
@@ -212,7 +223,13 @@ $(window).load(function(){
 
     $(document).keydown(function(e){
         if(e.keyCode === 27) { //ESC
-            dew.command('Input.UIButtonPress 1', {}).then(function(response){                dew.show();            });          }else if (e.keyCode == 192){ //~            dew.show("console");        }    });
+            dew.command('Input.UIButtonPress 1', {}).then(function(response){
+                dew.show();
+            });
+        }else if (e.keyCode == 192){ //~
+            dew.show("console");
+        }
+    });
     
     setInterval( CheckPageFocus, 200 );
     if(controllerSupport()){
