@@ -98,18 +98,81 @@ $(window).load(function(){
         $("#mapList li").sort(asc_sort).appendTo('#mapList');
         $('#mapDesc').html($("#mapList li:eq(0)").attr('data-desc'));
         $("#mapImage").attr("src", "images/maps/" + $("#mapList li:eq(0)").attr('data-filename') + ".png");
-    });        dew.on("show", function(){        hideAll();        dew.getSessionInfo().then(function(e){            if(e.established){                $("#mainmenu").hide();                $("#lobby").show();                dew.getGameVariantInfo().then(function(x){                    if(x.name != "Forge"){                        $("#gameMode").show();                        $("#gameMode").text("GAME: "+x.name.toUpperCase());                        $("#title").text("MULTIPLAYER LOBBY");                        $("#startGame").text("START GAME");
+    });        dew.on("show", function(){
+        hideAll();
+        dew.getSessionInfo().then(function(e){
+            if(e.established){
+                $("#mainmenu").hide();
+                $("#lobby").show();
+                dew.getGameVariantInfo().then(function(x){
+                    if(x.name != "Forge"){
+                        $("#gameMode").show();
+                        $("#gameMode").text("GAME: "+x.name.toUpperCase());
+                        $("#title").text("MULTIPLAYER LOBBY");
+                        $("#startGame").text("START GAME");
                         $("#switchMapMenu div:not(#mapDesc)").css('top', '6.5vw');
                         $("#switchMapMenu ul").css('top', '3vw');
                         $("#mapDesc").css('top', '18vw');
                         $("#mapImage").css('top', '6.5vw');
                     } else {
-                        $("#gameMode").hide();                        $("#title").text("FORGE LOBBY");                        $("#startGame").text("START FORGE");
+                        $("#gameMode").hide();
+                        $("#title").text("FORGE LOBBY");
+                        $("#startGame").text("START FORGE");
                         $("#switchMapMenu div:not(#mapDesc)").css('top', '4.3vw');
                         $("#switchMapMenu ul").css('top', '0.75vw');
                         $("#mapDesc").css('top', '15.75vw');
-                        $("#mapImage").css('top', '4.25vw');                    }                    $("#varPic").attr("src", "images/gametypes/" + gameType[x.mode] + ".png");                    dew.getMapVariantInfo().then(function(i){                        $("#switchMap").text("MAP: "+i.name.toUpperCase());
-                        var mapFile = $.grep(mapTable, function(e){ return e.ID == i.mapId; });                        $("#mapPic").attr("src", "images/maps/" + mapFile[0].file + ".png");                        if(x.name == "Forge"){ x.name = "Edit Objects"};                        $("#gameDesc").text(x.name + " on " + i.name);                        dew.command('Server.ListPlayersJSON', {}).then(function(l){                            var playerArray = JSON.parse(l);                            $('#playerList').empty();                            for(var i=0; i < playerArray.length; i++){                                var bgColor = playerArray[i].color;                                if(e.hasTeams){                                    bgColor = teamArray[playerArray[i].teamIndex].color;                                }                                $('#playerList').append(                                    $('<li>', {                                        text: playerArray[i].name,                                        css: {                                            backgroundColor: hexToRgb(bgColor,cardOpacity)                                        },                                        id: playerArray[i].name,                                        'data-color': bgColor,                                    }).mouseover(function(){                                        col = $(this).attr('data-color'),                                        bright = adjustColor(col, 30);                                        $(this).css("background-color", hexToRgb(bright, cardOpacity));                                    }).mouseout(function(){                                        col = $(this).attr('data-color');                                        $(this).css("background-color", hexToRgb(col, cardOpacity));                                    })                                )                            }                            dew.command('Server.Mode', {}).then(function(m){                                $("#switchNetwork").text("NETWORK: "+serverMode[m].toUpperCase());                                $("#status").html(networkStatus[m]);                                if(e.isHost){                                    var maxPlayers = 2;                                    if(m = 3){                                        dew.command('Server.MaxPlayers', {}).then(function(p){                                            maxPlayers = p;                                        });                                    }                                    //console.log('Max Players:' + maxPlayers);                                    $("#playerCount").text(playerArray.length + " Player  (" + maxPlayers + " max)");                                }                                dew.command('Server.LobbyType', {}).then(function(t){                                    //console.log('Lobby Type:' + lobbyType[t]);                                });                            });                        });                    });                });            } else {                $("#lobby").hide();                $("#mainmenu").show();            }        });    });        $("#hostMultiplayer").click(function(){        dew.command('Server.LobbyType 2', {}).then(function(response){            dew.show();          });    });       $("#hostForge").click(function(){        dew.command('Server.LobbyType 3', {}).then(function(response){            dew.show();          });      });             $("#switchLobby,#switchNetwork,#switchMap").click(function(e){
+                        $("#mapImage").css('top', '4.25vw');
+                    }
+                    $("#varPic").attr("src", "images/gametypes/" + gameType[x.mode] + ".png");
+                    dew.getMapVariantInfo().then(function(i){
+                        $("#switchMap").text("MAP: "+i.name.toUpperCase());
+                        var mapFile = $.grep(mapTable, function(e){ return e.ID == i.mapId; });
+                        $("#mapPic").attr("src", "images/maps/" + mapFile[0].file + ".png");
+                        if(x.name == "Forge"){ x.name = "Edit Objects"};
+                        $("#gameDesc").text(x.name + " on " + i.name);
+                        dew.command('Server.ListPlayersJSON', {}).then(function(l){
+                            var playerArray = JSON.parse(l);
+                            $('#playerList').empty();
+                            for(var i=0; i < playerArray.length; i++){
+                                var bgColor = playerArray[i].color;
+                                if(e.hasTeams){
+                                    bgColor = teamArray[playerArray[i].teamIndex].color;
+                                }
+                                $('#playerList').append(
+                                    $('<li>', {
+                                        text: playerArray[i].name,
+                                        css: {
+                                            backgroundColor: hexToRgb(bgColor,cardOpacity)
+                                        },
+                                        id: playerArray[i].name,
+                                        'data-color': bgColor,
+                                    }).mouseover(function(){
+                                        col = $(this).attr('data-color'),
+                                        bright = adjustColor(col, 30);
+                                        $(this).css("background-color", hexToRgb(bright, cardOpacity));
+                                    }).mouseout(function(){
+                                        col = $(this).attr('data-color');
+                                        $(this).css("background-color", hexToRgb(col, cardOpacity));
+                                    })
+                                )
+                            }
+                            dew.command('Server.Mode', {}).then(function(m){
+                                $("#switchNetwork").text("NETWORK: "+serverMode[m].toUpperCase());
+                                $("#status").html(networkStatus[m]);
+                                if(e.isHost){
+                                    var maxPlayers = 2;
+                                    if(m = 3){
+                                        dew.command('Server.MaxPlayers', {}).then(function(p){
+                                            maxPlayers = p;
+                                        });
+                                    }
+                                    $("#playerCount").text(playerArray.length + " Player  (" + maxPlayers + " max)");
+                                }
+                                dew.command('Server.LobbyType', {}).then(function(t){
+                                    //console.log('Lobby Type:' + lobbyType[t]);
+                                });
+                            });
+                        });                    });                });            } else {                $("#lobby").hide();                $("#mainmenu").show();            }        });    });        $("#hostMultiplayer").click(function(){        dew.command('Server.LobbyType 2', {}).then(function(response){            dew.show();          });    });       $("#hostForge").click(function(){        dew.command('Server.LobbyType 3', {}).then(function(response){            dew.show();          });      });             $("#switchLobby,#switchNetwork,#switchMap").click(function(e){
         controllerMenu = e.target.id+"Menu"        $("#blackout").show();        $("#"+controllerMenu).show();
         if($("#"+controllerMenu).length){
             index = 0;
