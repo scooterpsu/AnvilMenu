@@ -219,7 +219,43 @@ $(window).load(function(){
         });
     });
     
-    $("#forgeLobby").mouseover(function(){        $("#lobbyDesc").text(lobbyDesc[3]);    }).click(function(){        dew.command('Server.LobbyType 3', {}).then(function(response){            dew.show();          });        });        $("#onlineNetwork").mouseover(function(){        $("#networkDesc").text(networkDesc[3]);    }).click(function(){        dew.command('Server.Mode 3', {}).then(function(response){            dew.show();          });        });    $("#offlineNetwork").mouseover(function(){        $("#networkDesc").text(networkDesc[4]);    }).click(function(){        dew.command('Server.Mode 4', {}).then(function(response){            dew.show();          });        });    $("#startGame").click(function(){        dew.command('start', {}).then(function(response){            dew.hide();        });        });        $("#switchTeams").click(function(){        dew.command('Input.UIButtonPress 4', {}).then(function(){            setTimeout(function(){                dew.show();            },1500);        });     });
+    $("#forgeLobby").mouseover(function(){
+        $("#lobbyDesc").text(lobbyDesc[3]);
+    }).click(function(){
+        dew.command('Server.LobbyType 3', {}).then(function(response){
+            dew.show();
+        });
+    });
+    
+    $("#onlineNetwork").mouseover(function(){
+        $("#networkDesc").text(networkDesc[3]);
+    }).click(function(){
+        dew.command('Server.Mode 3', {}).then(function(response){
+            dew.show();
+        });
+    });
+    
+    $("#offlineNetwork").mouseover(function(){
+        $("#networkDesc").text(networkDesc[4]);
+    }).click(function(){
+        dew.command('Server.Mode 4', {}).then(function(response){
+            dew.show();
+        });
+    });
+    
+    $("#startGame").click(function(){
+        dew.command('start', {}).then(function(response){
+            dew.hide();
+        });
+    });
+    
+    $("#switchTeams").click(function(){
+        dew.command('Input.UIButtonPress 4', {}).then(function(){
+            setTimeout(function(){
+                dew.show();
+            },1500);
+        });
+    });
     
     $("#mainmenu #exitButton").click(function(){
         dew.command('Exit', {}).then(function(){}); 
