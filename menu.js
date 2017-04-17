@@ -72,6 +72,8 @@ var networkDesc = {0 : "Xbox Live (Open Party)", 1 : "Xbox Live (Friends Only)",
 
 var controllerMenu;
 var index = 0;
+var hasGP = false;
+var useKB = false;
 
 $(window).load(function(){
     dew.command('Game.ListMaps', {}).then(function(response){
@@ -90,6 +92,9 @@ $(window).load(function(){
                     }).mouseover(function(){
                         $("#mapDesc").html($(this).attr('data-desc'));
                         $("#mapImage").attr("src", "images/maps/" + $(this).attr('data-filename')+ ".png");
+                        $(this).addClass("selected");
+                    }).mouseout(function(){
+                        $(this).removeClass("selected");
                     }).click(function(){
                         dew.command('Game.Map ' + $(this).attr('data-filename'), {}).then(function(response){
                             dew.show();  
@@ -207,7 +212,7 @@ $(window).load(function(){
         $("#blackout").show();
         $("#"+controllerMenu).show();
         index = 0;
-        if(hasGP && $("#"+controllerMenu).length){
+        if((hasGP || useKB) && $("#"+controllerMenu).length){
             $(".selectable").removeClass("selected");
             $("#" + controllerMenu + " .selectable:first").addClass("selected");
         };
@@ -261,6 +266,7 @@ $(window).load(function(){
         index = $.inArray($(this)[0],list);
     }).mouseout(function(e){
         $(this).removeClass("selected");
+        useKB = false;
     });
     
     $("#switchTeams").click(function(){
@@ -280,6 +286,7 @@ $(window).load(function(){
     });
 
     $(document).keydown(function(e){
+        useKB = true;
         if(e.keyCode === 27) { //ESC
             if(controllerMenu == "leftSide"){
                 dew.command('Input.UIButtonPress 1', {}).then(function(response){
@@ -363,7 +370,6 @@ function controllerSupport(){
 }
 
 var pageFocus = false;
-var hasGP = false;
 var repGP;
 var timestamp; 
 var lastButtons = [];
@@ -422,7 +428,7 @@ function hideAll(){
     $("#switchLobbyMenu").hide();   
     $("#switchNetworkMenu").hide();
     $("#switchMapMenu").hide();
-    if(hasGP){
+    if(hasGP || useKB){
         controllerMenu = "leftSide";
         index = 0;
         $(".selectable").removeClass("selected");
