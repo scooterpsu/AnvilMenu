@@ -70,6 +70,9 @@ var networkStatus = {0 : "Xbox Live (Open Party)", 1 : "Xbox Live (Friends Only)
 var lobbyDesc = { 0 : "Campaign", 1 : "Matchmaking", 2 : "Take your party to combat and objective-based missions that you select and design. Your rules, your maps, your game.", 3 : "Take your party to collaborate in real time to edit and play variations of your favorite maps, form the subtle to the insane.", 4 : "Theater"};
 var networkDesc = {0 : "Xbox Live (Open Party)", 1 : "Xbox Live (Friends Only)", 2 : "Xbox Live (Invite Only)", 3 : "Play with others over your local area network, VPN or Online.", 4 : "Play only on this PC."};
 
+var controllerMenu;
+var index = 0;
+
 $(window).load(function(){
     dew.command('Game.ListMaps', {}).then(function(response){
         var temp = response.split(",");
@@ -104,6 +107,8 @@ $(window).load(function(){
         hideAll();
         dew.getSessionInfo().then(function(e){
             if(e.established){
+                controllerMenu = "leftSide";
+                index = 0;
                 $("#mainmenu").hide();
                 $("#lobby").show();
                 dew.getGameVariantInfo().then(function(x){
@@ -180,6 +185,7 @@ $(window).load(function(){
             } else {
                 $("#lobby").hide();
                 $("#mainmenu").show();
+                controllerMenu = "mainmenu";
             }
         });
     });
@@ -200,8 +206,8 @@ $(window).load(function(){
         controllerMenu = e.target.id+"Menu";
         $("#blackout").show();
         $("#"+controllerMenu).show();
+        index = 0;
         if(hasGP && $("#"+controllerMenu).length){
-            index = 0;
             $(".selectable").removeClass("selected");
             $("#" + controllerMenu + " .selectable:first").addClass("selected");
         };
@@ -249,6 +255,14 @@ $(window).load(function(){
         });
     });
     
+    $(".selectable").mouseover(function(){
+        $(this).addClass("selected");
+        var list = $('#' + controllerMenu + ' .selectable:visible');
+        index = $.inArray($(this)[0],list);
+    }).mouseout(function(e){
+        $(this).removeClass("selected");
+    });
+    
     $("#switchTeams").click(function(){
         dew.command('Input.UIButtonPress 4', {}).then(function(){
             setTimeout(function(){
@@ -267,11 +281,23 @@ $(window).load(function(){
 
     $(document).keydown(function(e){
         if(e.keyCode === 27) { //ESC
-            dew.command('Input.UIButtonPress 1', {}).then(function(response){
-                dew.show();
-            });
+            if(controllerMenu == "leftSide"){
+                dew.command('Input.UIButtonPress 1', {}).then(function(response){
+                    dew.show();
+                });
+            }else{
+                hideAll();
+            }
         }else if (e.keyCode == 192){ //~
             dew.show("console");
+        }else if (e.keyCode == 38){ //Up
+            previous();
+        }else if (e.keyCode == 40){ //Down
+            next();
+        }else if (e.keyCode == 13){ //Enter
+            $('#' + controllerMenu + ' .selected').click();
+        }else{
+            console.log(e.keyCode);
         }
     });
     
@@ -378,9 +404,6 @@ function buttonAction(i){
             console.log("nothing associated with " + i);
     }  
 }
-
-var index = 0;
-var controllerMenu = "leftSide";
 
 function previous() {
    var list = $('#' + controllerMenu + ' .selectable:visible').removeClass('selected');
