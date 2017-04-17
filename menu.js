@@ -89,7 +89,7 @@ $(window).load(function(){
                         'data-desc':result[0].desc
                     }).mouseover(function(){
                         $("#switchMapMenu #menuDescription").html($(this).attr('data-desc'));
-                        $("#mapImage").attr("src", "images/maps/" + $(this).attr('data-filename')+ ".png");
+                        $("#switchMapMenu #menuImage").attr("src", "images/maps/" + $(this).attr('data-filename')+ ".png");
                         $(this).addClass("selected");
                     }).mouseout(function(){
                         $(this).removeClass("selected");
@@ -103,7 +103,7 @@ $(window).load(function(){
         };
         $("#mapList li").sort(asc_sort).appendTo('#mapList');
         $('#switchMapMenu #menuDescription').html($("#mapList li:eq(0)").attr('data-desc'));
-        $("#mapImage").attr("src", "images/maps/" + $("#mapList li:eq(0)").attr('data-filename') + ".png");
+        $("#menuImage").attr("src", "images/maps/" + $("#mapList li:eq(0)").attr('data-filename') + ".png");
     });
     
     dew.on("show", function(){
@@ -123,7 +123,7 @@ $(window).load(function(){
                         $("#switchMapMenu div:not(#mapDesc)").css('top', '6.5vw');
                         $("#switchMapMenu ul").css('top', '3vw');
                         $("#switchMapMenu #menuDescription").css('top', '18vw');
-                        $("#mapImage").css('top', '6.5vw');
+                        $("#menuImage").css('top', '6.5vw');
                     } else {
                         $("#gameMode").hide();
                         $("#title").text("FORGE LOBBY");
@@ -131,7 +131,7 @@ $(window).load(function(){
                         $("#switchMapMenu div:not(#mapDesc)").css('top', '4.3vw');
                         $("#switchMapMenu ul").css('top', '0.75vw');
                         $("#switchMapMenu #menuDescription").css('top', '15.75vw');
-                        $("#mapImage").css('top', '4.25vw');
+                        $("#menuImage").css('top', '4.25vw');
                     }
                     $("#varPic").attr("src", "images/gametypes/" + gameType[x.mode] + ".png");
                     dew.getMapVariantInfo().then(function(i){
@@ -423,8 +423,8 @@ function updateDescriptions(){
     if($('#' + controllerMenu + ' #menuDescription').length){
         $('#' + controllerMenu + ' #menuDescription').html($('#' + controllerMenu + ' .selected').attr('data-desc'));
     }  
-    if($('#' + controllerMenu + ' #mapImage').length){  
-        $('#' + controllerMenu + ' #mapImage').attr('src', 'images/maps/' + $('#' + controllerMenu + ' .selected').attr('data-filename')+ '.png');
+    if($('#' + controllerMenu + ' #menuImage').length){  
+        $('#' + controllerMenu + ' #menuImage').attr('src', 'images/maps/' + $('#' + controllerMenu + ' .selected').attr('data-filename')+ '.png');
     }    
 }
 
