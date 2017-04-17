@@ -193,6 +193,34 @@ $(window).load(function(){
         });
     });
     
+    $("#switchLobby,#switchNetwork,#switchMap").click(function(e){
+        controllerMenu = e.target.id+"Menu";
+        $("#blackout").show();
+        $("#"+controllerMenu).show();
+        index = 0;
+        if((hasGP || useKB) && $("#"+controllerMenu).length){
+            $(".selectable").removeClass("selected");
+            $("#" + controllerMenu + " .selectable:first").addClass("selected");
+        };
+    });
+
+    $("#multiLobby, #forgeLobby, #onlineNetwork, #offlineNetwork").mouseover(function(){
+        $("#"+controllerMenu+" #menuDescription").text($(this).attr('data-desc'));
+    });
+      
+    $(".selectable").mouseover(function(){
+        $(this).addClass("selected");
+        var list = $('#' + controllerMenu + ' .selectable:visible');
+        index = $.inArray($(this)[0],list);
+    }).mouseout(function(e){
+        $(this).removeClass("selected");
+        useKB = false;
+    });
+    
+    $("#blackout").click(function(){
+        hideAll();
+    });
+       
     $("#hostMultiplayer").click(function(){
         dew.command('Server.LobbyType 2', {}).then(function(response){
             dew.show();
@@ -204,49 +232,26 @@ $(window).load(function(){
             dew.show();
         });
     });
-    
-    $("#switchLobby,#switchNetwork,#switchMap").click(function(e){
-        controllerMenu = e.target.id+"Menu";
-        $("#blackout").show();
-        $("#"+controllerMenu).show();
-        index = 0;
-        if((hasGP || useKB) && $("#"+controllerMenu).length){
-            $(".selectable").removeClass("selected");
-            $("#" + controllerMenu + " .selectable:first").addClass("selected");
-        };
-    });
-    
-    $("#blackout").click(function(){
-        hideAll();
-    });
-    
-    $("#multiLobby").mouseover(function(){
-        $("#switchLobbyMenu #menuDescription").text($("#multiLobby").attr('data-desc'));
-    }).click(function(){
+
+    $("#multiLobby").click(function(){
         dew.command('Server.LobbyType 2', {}).then(function(response){
             dew.show();
         });
     });
     
-    $("#forgeLobby").mouseover(function(){
-        $("#switchLobbyMenu #menuDescription").text($("#forgeLobby").attr('data-desc'));
-    }).click(function(){
+    $("#forgeLobby").click(function(){
         dew.command('Server.LobbyType 3', {}).then(function(response){
             dew.show();
         });
     });
     
-    $("#onlineNetwork").mouseover(function(){
-        $("#switchNetworkMenu #menuDescription").text($("#onlineNetwork").attr('data-desc'));
-    }).click(function(){
+    $("#onlineNetwork").click(function(){
         dew.command('Server.Mode 3', {}).then(function(response){
             dew.show();
         });
     });
     
-    $("#offlineNetwork").mouseover(function(){
-        $("#switchNetworkMenu #menuDescription").text($("#offlineNetwork").attr('data-desc'));
-    }).click(function(){
+    $("#offlineNetwork").click(function(){
         dew.command('Server.Mode 4', {}).then(function(response){
             dew.show();
         });
@@ -257,16 +262,7 @@ $(window).load(function(){
             dew.hide();
         });
     });
-    
-    $(".selectable").mouseover(function(){
-        $(this).addClass("selected");
-        var list = $('#' + controllerMenu + ' .selectable:visible');
-        index = $.inArray($(this)[0],list);
-    }).mouseout(function(e){
-        $(this).removeClass("selected");
-        useKB = false;
-    });
-    
+
     $("#switchTeams").click(function(){
         dew.command('Input.UIButtonPress 4', {}).then(function(){
             setTimeout(function(){
@@ -302,7 +298,7 @@ $(window).load(function(){
         }else if (e.keyCode == 13){ //Enter
             $('#' + controllerMenu + ' .selected').click();
         }else{
-            console.log(e.keyCode);
+            //console.log(e.keyCode);
         }
     });
     
@@ -405,7 +401,7 @@ function buttonAction(i){
             next();
             break;
         default:
-            console.log("nothing associated with " + i);
+            //console.log("nothing associated with " + i);
     }  
 }
 
