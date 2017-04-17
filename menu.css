@@ -253,7 +253,7 @@ body{
     z-index:6;
 }
 
-#switchLobbyMenu div:not(#lobbyDesc),#switchNetworkMenu div:not(#networkDesc),#switchMapMenu div:not(#mapDesc){
+#switchLobbyMenu div:not(#menuDescription),#switchNetworkMenu div:not(#menuDescription),#switchMapMenu div:not(#menuDescription){
     position: relative;
     left:6.3vw;
     top: 0vw;
@@ -265,11 +265,11 @@ body{
     padding-left:1vw;
 }
 
-#switchNetworkMenu div:not(#networkDesc){
+#switchNetworkMenu div:not(#menuDescription){
     top: 2.15vw;
 }
 
-#switchMapMenu div:not(#mapDesc){
+#switchMapMenu div:not(#menuDescription){
     top: 10.7vw;
 }
 
@@ -302,7 +302,7 @@ body{
     padding-bottom: 0.15vw;
 }
 
-#lobbyDesc,#networkDesc,#mapDesc{
+#switchLobbyMenu #menuDescription,#switchNetworkMenu #menuDescription,#switchMapMenu #menuDescription{
     position:relative;
     top: -8vw;
     left:48vw;
@@ -312,11 +312,11 @@ body{
     letter-spacing:0.02vw;
 }
 
-#networkDesc{
+#switchNetworkMenu #menuDescription{
     top:-5.9vw;
 }
 
-#mapDesc{
+#switchMapMenu #menuDescription{
     position:absolute;
     top:10.6vw;
 }

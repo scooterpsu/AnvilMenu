@@ -67,8 +67,6 @@ var teamArray = [
 ];
 var cardOpacity = 0.9;
 var networkStatus = {0 : "Xbox Live (Open Party)", 1 : "Xbox Live (Friends Only)", 2 : "Xbox Live (Invite Only)", 3 : "Ready.<br>This party is open for others to join.", 4 : "Ready.<br>This party is local to your PC. To play with others, select Network and the choose Online."};
-var lobbyDesc = { 0 : "Campaign", 1 : "Matchmaking", 2 : "Take your party to combat and objective-based missions that you select and design. Your rules, your maps, your game.", 3 : "Take your party to collaborate in real time to edit and play variations of your favorite maps, form the subtle to the insane.", 4 : "Theater"};
-var networkDesc = {0 : "Xbox Live (Open Party)", 1 : "Xbox Live (Friends Only)", 2 : "Xbox Live (Invite Only)", 3 : "Play with others over your local area network, VPN or Online.", 4 : "Play only on this PC."};
 
 var controllerMenu;
 var index = 0;
@@ -90,7 +88,7 @@ $(window).load(function(){
                         'data-filename': result[0].file,
                         'data-desc':result[0].desc
                     }).mouseover(function(){
-                        $("#mapDesc").html($(this).attr('data-desc'));
+                        $("#switchMapMenu #menuDescription").html($(this).attr('data-desc'));
                         $("#mapImage").attr("src", "images/maps/" + $(this).attr('data-filename')+ ".png");
                         $(this).addClass("selected");
                     }).mouseout(function(){
@@ -104,7 +102,7 @@ $(window).load(function(){
             }
         };
         $("#mapList li").sort(asc_sort).appendTo('#mapList');
-        $('#mapDesc').html($("#mapList li:eq(0)").attr('data-desc'));
+        $('#switchMapMenu #menuDescription').html($("#mapList li:eq(0)").attr('data-desc'));
         $("#mapImage").attr("src", "images/maps/" + $("#mapList li:eq(0)").attr('data-filename') + ".png");
     });
     
@@ -124,7 +122,7 @@ $(window).load(function(){
                         $("#startGame").text("START GAME");
                         $("#switchMapMenu div:not(#mapDesc)").css('top', '6.5vw');
                         $("#switchMapMenu ul").css('top', '3vw');
-                        $("#mapDesc").css('top', '18vw');
+                        $("#switchMapMenu #menuDescription").css('top', '18vw');
                         $("#mapImage").css('top', '6.5vw');
                     } else {
                         $("#gameMode").hide();
@@ -132,7 +130,7 @@ $(window).load(function(){
                         $("#startGame").text("START FORGE");
                         $("#switchMapMenu div:not(#mapDesc)").css('top', '4.3vw');
                         $("#switchMapMenu ul").css('top', '0.75vw');
-                        $("#mapDesc").css('top', '15.75vw');
+                        $("#switchMapMenu #menuDescription").css('top', '15.75vw');
                         $("#mapImage").css('top', '4.25vw');
                     }
                     $("#varPic").attr("src", "images/gametypes/" + gameType[x.mode] + ".png");
@@ -223,7 +221,7 @@ $(window).load(function(){
     });
     
     $("#multiLobby").mouseover(function(){
-        $("#lobbyDesc").text(lobbyDesc[2]);
+        $("#switchLobbyMenu #menuDescription").text($("#multiLobby").attr('data-desc'));
     }).click(function(){
         dew.command('Server.LobbyType 2', {}).then(function(response){
             dew.show();
@@ -231,7 +229,7 @@ $(window).load(function(){
     });
     
     $("#forgeLobby").mouseover(function(){
-        $("#lobbyDesc").text(lobbyDesc[3]);
+        $("#switchLobbyMenu #menuDescription").text($("#forgeLobby").attr('data-desc'));
     }).click(function(){
         dew.command('Server.LobbyType 3', {}).then(function(response){
             dew.show();
@@ -239,7 +237,7 @@ $(window).load(function(){
     });
     
     $("#onlineNetwork").mouseover(function(){
-        $("#networkDesc").text(networkDesc[3]);
+        $("#switchNetworkMenu #menuDescription").text($("#onlineNetwork").attr('data-desc'));
     }).click(function(){
         dew.command('Server.Mode 3', {}).then(function(response){
             dew.show();
@@ -247,7 +245,7 @@ $(window).load(function(){
     });
     
     $("#offlineNetwork").mouseover(function(){
-        $("#networkDesc").text(networkDesc[4]);
+        $("#switchNetworkMenu #menuDescription").text($("#offlineNetwork").attr('data-desc'));
     }).click(function(){
         dew.command('Server.Mode 4', {}).then(function(response){
             dew.show();
@@ -412,15 +410,26 @@ function buttonAction(i){
 }
 
 function previous() {
-   var list = $('#' + controllerMenu + ' .selectable:visible').removeClass('selected');
-   index = (index - 1) % list.length;
-   list.eq(index).addClass('selected');
+    var list = $('#' + controllerMenu + ' .selectable:visible').removeClass('selected');
+    index = (index - 1) % list.length;
+    list.eq(index).addClass('selected');
+    updateDescriptions();
 }
 
 function next() {
-   var list = $('#' + controllerMenu + ' .selectable:visible').removeClass('selected');
-   index = (index + 1) % list.length;
-   list.eq(index).addClass('selected');
+    var list = $('#' + controllerMenu + ' .selectable:visible').removeClass('selected');
+    index = (index + 1) % list.length;
+    list.eq(index).addClass('selected');
+    updateDescriptions();
+}
+
+function updateDescriptions(){
+    if($('#' + controllerMenu + ' #menuDescription').length){
+        $('#' + controllerMenu + ' #menuDescription').html($('#' + controllerMenu + ' .selected').attr('data-desc'));
+    }  
+    if($('#' + controllerMenu + ' #mapImage').length){  
+        $('#' + controllerMenu + ' #mapImage').attr('src', 'images/maps/' + $('#' + controllerMenu + ' .selected').attr('data-filename')+ '.png');
+    }    
 }
 
 function hideAll(){
