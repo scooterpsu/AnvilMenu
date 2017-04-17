@@ -321,6 +321,7 @@ body{
     top:10.6vw;
 }
 
+#switchMapMenu #menuImage{
     position: absolute;
     top: 21.5vw;
     left:48vw;
