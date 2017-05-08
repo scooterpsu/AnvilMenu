@@ -242,6 +242,13 @@ body{
     letter-spacing: 0.033vw;
 }
 
+.emblem{
+    height:1.75vw;
+    margin-bottom:-0.15vw;
+    margin-right:0.5vw;
+    margin-left:-2.5vw;
+}
+
 #legend, #priorGame{
     display:none
 }

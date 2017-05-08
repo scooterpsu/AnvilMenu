@@ -133,11 +133,11 @@ $(window).load(function(){
                         $("#switchMapMenu #menuDescription").css('top', '15.75vw');
                         $("#menuImage").css('top', '4.25vw');
                     }
-                    $("#varPic").attr("src", "images/gametypes/" + gameType[x.mode] + ".png");
+                    $("#varPic").attr("src", "dew://assets/gametypes/" + gameType[x.mode] + ".png");
                     dew.getMapVariantInfo().then(function(i){
                         $("#switchMap").text("MAP: "+i.name.toUpperCase());
                         var mapFile = $.grep(mapTable, function(e){ return e.ID == i.mapId; });
-                        $("#mapPic").attr("src", "images/maps/" + mapFile[0].file + ".png");
+                        $("#mapPic").attr("src", "dew://assets/maps/small/" + mapFile[0].file + ".png");
                         if(x.name == "Forge"){ x.name = "Edit Objects"};
                         $("#gameDesc").text(x.name + " on " + i.name);
                         dew.command('Server.ListPlayersJSON', {}).then(function(l){
@@ -165,6 +165,7 @@ $(window).load(function(){
                                         $(this).css("background-color", hexToRgb(col, cardOpacity));
                                     })
                                 )
+                                $('#'+playerArray[i].name).prepend('<img class="emblem" src="dew://assets/ed/logo.png">');
                             }
                             dew.command('Server.Mode', {}).then(function(m){
                                 $("#switchNetwork").text("NETWORK: "+serverMode[m].toUpperCase());
@@ -424,7 +425,7 @@ function updateDescriptions(){
         $('#' + controllerMenu + ' #menuDescription').html($('#' + controllerMenu + ' .selected').attr('data-desc'));
     }  
     if($('#' + controllerMenu + ' #menuImage').length){  
-        $('#' + controllerMenu + ' #menuImage').attr('src', 'images/maps/' + $('#' + controllerMenu + ' .selected').attr('data-filename')+ '.png');
+        $('#' + controllerMenu + ' #menuImage').attr('src', 'dew://assets/maps/small/' + $('#' + controllerMenu + ' .selected').attr('data-filename')+ '.png');
     }    
 }
 
