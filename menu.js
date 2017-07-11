@@ -221,6 +221,10 @@ $(window).load(function(){
     $("#blackout").click(function(){
         hideAll();
     });
+    
+	$("#serverBrowser").click(function(){
+        dew.show("browser");
+    });
        
     $("#hostMultiplayer").click(function(){
         dew.command('Server.LobbyType 2', {}).then(function(response){
@@ -280,6 +284,10 @@ $(window).load(function(){
         dew.command('Exit', {}).then(function(){}); 
     });
 
+    $("#settingsButton").click(function(){
+        dew.show('settings'); 
+    });
+    
     $(document).keydown(function(e){
         useKB = true;
         if(e.keyCode === 27) { //ESC
